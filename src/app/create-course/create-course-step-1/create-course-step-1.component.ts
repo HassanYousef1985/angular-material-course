@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
-import {UntypedFormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
+import {MatCalendarCellClassFunction} from '@angular/material/datepicker';
+
+const SAMPLE_TEXT= "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin enim quam, semper et sodales in, aliquam vitae leo. Suspendisse quis eleifend nisl. Nunc ante ligula, ultricies sed quam et, consectetur laoreet enim. Praesent scelerisque velit efficitur blandit dapibus. Etiam vulputate, lacus eu vestibulum faucibus, leo odio consectetur sem, nec rhoncus nulla diam vitae ante. Aenean lacinia porta quam, vel pretium mi. Cras sed leo ut dui gravida faucibus ut at nibh. In hac habitasse platea dictumst. Praesent finibus tempor lobortis. Integer ut urna lacus. Fusce imperdiet dolor efficitur erat facilisis venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam non eros efficitur, accumsan est vel, pulvinar sem.";
 
 
 @Component({
@@ -15,14 +18,43 @@ export class CreateCourseStep1Component {
       Validators.minLength(5),
       Validators.maxLength(60)
     ]],
-    releasedAt: [new Date(1990,0,1), Validators.required],
+    releasedAt: [new Date(2022,6,6), Validators.required],
     category: ['BEGINNER', Validators.required],
     courseType: ['premium', Validators.required],
     downloadsAllowed: [false, Validators.requiredTrue],
-    longDescription: ['', [Validators.required, Validators.minLength(3)]]
+    longDescription: [SAMPLE_TEXT, [Validators.required, Validators.minLength(3)]]
   });
 
-  constructor(private fb: UntypedFormBuilder) {
+
+  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+    // Only highligh dates inside the month view.
+    if (view === 'month') {
+      const date = cellDate.getDate();
+
+      // Highlight the 1st day of each month.
+      return date === 1  ? 'example-custom-date-class' : '';
+    }
+
+    return '';
+  };
+
+
+  // dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+
+  //     const date = cellDate.getDate();
+
+  //     if (view == 'month') {
+  //         return (date == 1) ? 'highlight-date' : "";
+
+  //     }
+
+  //     return "";
+
+  // }
+
+
+
+  constructor(private fb: FormBuilder) {
 
   }
 

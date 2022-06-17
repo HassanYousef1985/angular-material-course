@@ -4,74 +4,97 @@
   <mat-form-field>
 
 
-    <input matInput placeholder="Course title" formControlName="title" #title>
+      <input matInput placeholder="Course title" formControlName="title" #title>
+
+      <mat-hint align="end">
+
+          {{title.value.length}} / 60
+
+      </mat-hint>
+
+      <mat-error *ngIf="courseTitle.errors?.minlength">
+
+          A minimum length of 5 characters is required.
+
+      </mat-error>
 
 
-    <mat-hint align="end">
+  </mat-form-field>
 
-      {{title.value.length}} / 60
+  <mat-radio-group class="course-type" formControlName="courseType">
 
-    </mat-hint>
+      <mat-radio-button [disabled]="true" value="free">Free</mat-radio-button>
 
-    <mat-error *ngIf="courseTitle.errors?.minlength">
+      <mat-radio-button value="premium">Premium</mat-radio-button>
 
-        A minimum length of 5 characters is required.
+  </mat-radio-group>
 
-    </mat-error>
+  <mat-form-field>
 
+      <mat-select formControlName="category"
+                  placeholder="Select category">
 
-</mat-form-field>
+          <mat-option>None</mat-option>
 
-<mat-radio-group class="course-type" formControlName="courseType">
+          <mat-optgroup label="Beginners">
 
-  <mat-radio-button [disabled]="true" value="free">Free</mat-radio-button>
+              <mat-option value="newprogramming">New To Programming</mat-option>
+              <mat-option value="newjavascript">New To Javascript</mat-option>
+              <mat-option value="newangular">New To Angular</mat-option>
 
-  <mat-radio-button value="premium">Premium</mat-radio-button>
+          </mat-optgroup>
 
-</mat-radio-group>
+          <mat-option value="INTERMEDIATE">Intermediate</mat-option>
+          <mat-option value="ADVANCED">Advanced</mat-option>
 
-<mat-form-field>
+      </mat-select>
 
-  <mat-select formControlName="category"
-              placeholder="Select category">
+  </mat-form-field>
 
-      <mat-option>None</mat-option>
+  <mat-form-field appearance="outline">
+    <input matInput formControlName="releasedAt" placeholder="Release date" [matDatepicker]="picker" >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+  </mat-form-field>
 
-      <mat-optgroup label="Beginners">
+  <!-- <mat-form-field appearance="outline">
 
-          <mat-option value="newprogramming">New To Programming</mat-option>
-          <mat-option value="newjavascript">New To Javascript</mat-option>
-          <mat-option value="newangular">New To Angular</mat-option>
+      <input matInput formControlName="releasedAt"
+             placeholder="Release date" [matDatepicker]="releasedAtPicker">
 
-      </mat-optgroup>
-
-      <mat-option value="INTERMEDIATE">Intermediate</mat-option>
-      <mat-option value="ADVANCED">Advanced</mat-option>
-
-  </mat-select>
-
-</mat-form-field>
-
-
-<mat-form-field appearance="outline">
-
-  <input matInput formControlName="releasedAt"
-         placeholder="Release date" [matDatepicker]="releasedAtPicker">
-
-  <mat-datepicker-toggle matSuffix [for]="releasedAtPicker">
+      <mat-datepicker-toggle matSuffix [for]="releasedAtPicker">
 
 
-  </mat-datepicker-toggle>
+      </mat-datepicker-toggle>
 
-  <mat-datepicker #releasedAtPicker>
-
-
-  </mat-datepicker>
+      <mat-datepicker #releasedAtPicker >
 
 
-</mat-form-field>
+      </mat-datepicker>
+
+
+  </mat-form-field> -->
+
+  <!-- <mat-checkbox color="primary" formControlName="downloadsAllowed"
+      [indeterminate]="true">
+
+      Downloads allowed?
+
+  </mat-checkbox>
+
+  <mat-form-field appearance="outline">
+
+      <textarea matInput placeholder="Description" formControlName="longDescription"
+
+                cdkTextareaAutosize [cdkAutosizeMinRows]="2"
+                [cdkAutosizeMaxRows]="5">
+
+
+      </textarea>
+
+  </mat-form-field> -->
+
 
 </div>
-
 
 
