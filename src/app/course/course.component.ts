@@ -6,7 +6,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import {Course} from "../model/course";
 import {CoursesService} from "../services/courses.service";
 import {debounceTime, distinctUntilChanged, startWith, tap, delay, catchError, finalize} from 'rxjs/operators';
-import {merge, fromEvent, throwError} from "rxjs";
+import {merge, fromEvent, throwError, pipe} from "rxjs";
 import { Lesson } from '../model/lesson';
 
 
@@ -23,6 +23,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     loading = false;
 
+    @ViewChild(MatPaginator)
+    paginator: MatPaginator;
 
     constructor(private route: ActivatedRoute,
                 private coursesService: CoursesService) {
@@ -45,7 +47,10 @@ export class CourseComponent implements OnInit, AfterViewInit {
      this.loading = true;
 
      this.coursesService.findLessons(
-            this.course.id, "asc",0 , 3)
+            this.course.id,
+            "asc",
+            this.paginator?.pageIndex ?? 0,
+            this.paginator?.pageSize ?? 3)
             .pipe(
                 tap(lessons => this.lessons = lessons),
                 catchError(err => {
@@ -62,6 +67,12 @@ export class CourseComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
 
 
+
+       this.paginator.page
+          .pipe(
+              tap(() => this.loadLessonsPage())
+          )
+          .subscribe();
     }
 
 }

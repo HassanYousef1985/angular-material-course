@@ -10,9 +10,6 @@
 
 </div>
 
-</div>
-
-
 <table mat-table class="lessons-table mat-elevation-z8"
                [dataSource]="lessons">
 
@@ -57,7 +54,17 @@
 
             </tr>
 
-        </table>
+  </table>
+
+  <mat-paginator class="mat-elevation-z8"
+        [length]="course?.lessonsCount"
+        [pageSize]="3"
+        [pageSizeOptions]="[3, 5, 10]">
+
+  </mat-paginator>
+
+</div>
+
 
 
 
