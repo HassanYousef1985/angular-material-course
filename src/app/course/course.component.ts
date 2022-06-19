@@ -29,14 +29,15 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatSort)
     sort: MatSort;
-    // selection = new SelectionModel<Lesson>(true, []);
+
+    selection = new SelectionModel<Lesson>(true, []);
 
     constructor(private route: ActivatedRoute,
                 private coursesService: CoursesService) {
 
     }
 
-    displayedColumns = [ 'seqNo', "description", "duration"];
+    displayedColumns = ['select', 'seqNo', "description", "duration"];
 
     expandedLesson: Lesson = null;
 
@@ -47,6 +48,16 @@ export class CourseComponent implements OnInit, AfterViewInit {
         this.loadLessonsPage();
 
     }
+
+
+    onLessonToggled(lesson:Lesson) {
+
+      this.selection.toggle(lesson);
+
+      console.log(this.selection.selected);
+
+    }
+
 
     onToggleLesson(lesson:Lesson) {
 
@@ -94,5 +105,18 @@ export class CourseComponent implements OnInit, AfterViewInit {
           )
           .subscribe();
     }
+
+    isAllSelected() {
+      return this.selection.selected?.length == this.lessons?.length;
+    }
+
+    toggleAll() {
+      if (this.isAllSelected()) {
+          this.selection.clear();
+      }
+      else {
+          this.selection.select(...this.lessons);
+      }
+     }
 
 }
