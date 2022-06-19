@@ -12,7 +12,7 @@
 
 <table mat-table class="lessons-table mat-elevation-z8"
               matSort matSortDisableClear matSortActive="seqNo" matSortDirection="asc"
-              [dataSource]="lessons">
+              [dataSource]="lessons" multiTemplateDataRows>
 
             <ng-container matColumnDef="seqNo" >
 
@@ -46,12 +46,17 @@
 
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns">
-
-            </tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
             <tr mat-row
+                (click)="onToggleLesson(lesson)"
                 *matRowDef="let lesson;columns:displayedColumns">
+            </tr>
+
+            <tr mat-row *matRowDef="let lesson; columns:['expandedDetail']"
+                [class.collapsed-detail]="lesson != expandedLesson">
+
+
 
             </tr>
 

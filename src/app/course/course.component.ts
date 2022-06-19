@@ -8,6 +8,7 @@ import {CoursesService} from "../services/courses.service";
 import {debounceTime, distinctUntilChanged, startWith, tap, delay, catchError, finalize} from 'rxjs/operators';
 import {merge, fromEvent, throwError, pipe} from "rxjs";
 import { Lesson } from '../model/lesson';
+import { SelectionModel } from '@angular/cdk/collections';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatSort)
     sort: MatSort;
+    // selection = new SelectionModel<Lesson>(true, []);
 
     constructor(private route: ActivatedRoute,
                 private coursesService: CoursesService) {
@@ -35,6 +37,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
     }
 
     displayedColumns = [ 'seqNo', "description", "duration"];
+
+    expandedLesson: Lesson = null;
 
     ngOnInit() {
 
@@ -44,6 +48,18 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     }
 
+    onToggleLesson(lesson:Lesson) {
+
+      if (lesson == this.expandedLesson){
+        this.expandedLesson = null;
+        console.log('toggle-hassan');
+
+      }
+      else{
+        this.expandedLesson = lesson;
+      }
+
+  }
 
   loadLessonsPage() {
 
