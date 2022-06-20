@@ -16,7 +16,7 @@ export class CoursesCardListComponent implements OnInit {
     courses: Course[];
     cols = 3;
     rowHeight = '500px';
-    handsetPortrait: false;
+    handsetPortrait= false;
 
     constructor(private dialog: MatDialog,
                 private responsive:BreakpointObserver) {
@@ -43,6 +43,8 @@ export class CoursesCardListComponent implements OnInit {
             else if (breakpoints[Breakpoints.HandsetPortrait]) {
                 this.cols = 1;
                 this.rowHeight = "430px";
+                this.handsetPortrait = true;
+
             }
             else if (breakpoints[Breakpoints.HandsetLandscape]) {
                 this.cols = 1;
